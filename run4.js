@@ -4,6 +4,13 @@ module.exports = exec;
 const natural = require('natural');
 
 /**
+The goal with this approach is to avoid collecting subphrases of repeated superphrases.
+
+This requires visiting phrases first, so you know what subphrases to avoid.
+
+The `_generateGrams` function handles this by returning an array (`inDescLength`) with longer phrases first.
+
+
 TODO idea, plz shoot holes
 
 gen all grams from options.MIN_GRAM to options.MAX_GRAM
@@ -52,7 +59,7 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10}) {
                     });
             });
         }
-        // console.log(JSON.stringify(grams.inDescLength, null, 4));
+        console.log(JSON.stringify(grams.inDescLength, null, 4));
         return grams;
     }
 
