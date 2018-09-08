@@ -31,9 +31,9 @@ grams.inDescLength.forEach((gramKey) => {
         _deleteSubgrams(gramKey, grams.countsByGram);
 });
 
+let repeatedPhrases = _filterSingles(grams.countsByGram).map((gramKey) => _splitKey(gramKey).join(' '));
 
-
-console.log(JSON.stringify(grams.countsByGram, null, 4));
+console.log(JSON.stringify(repeatedPhrases, null, 4));
 
 
 function _generateGrams(docStr) {
@@ -41,31 +41,32 @@ function _generateGrams(docStr) {
     let sentences = docStr.split('. '); // TODO better sentence parser
 
     for (let n = MIN_GRAM; n <= MAX_GRAM; n++) {
-
         sentences.forEach((sentence) => {
-
             natural.NGrams.ngrams(sentence, n)
                 .forEach((gram) => {
                     let gramKey = _key(gram);
                     grams.countsByGram[gramKey] = 0;
                     grams.inDescLength.push(gramKey);
                 });
-
         });
-
     }
-
     return grams;
 }
 
 function _deleteSubgrams(gramKey, keyHolder) {
     let gram = _splitKey(gramKey);
     for (let n = MIN_GRAM; n < gram.length; n++) {
-        natural.NGrams.ngrams(gram, n).forEach((gram) => {
-            let gramKey = _key(gram);
-            delete keyHolder[gramKey];
-        });
+        natural.NGrams.ngrams(gram, n)
+            .forEach((gram) => {
+                let gramKey = _key(gram);
+                delete keyHolder[gramKey];
+            });
     }
+}
+
+function _filterSingles(countsByGram) {
+    return Object.keys(countsByGram)
+                .filter((gramKey) => countsByGram[gramKey] > 1);
 }
 
 function _key(gram) {
