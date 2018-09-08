@@ -4,8 +4,9 @@ const expect = require('chai').expect;
 let run = require('../run4');
 
 const resources = [
-    {filename: 'brown-fox', output: '["the lazy dog","the quick brown fox jumped over"]'},
-    {filename: 'lazy-dog', output: '["the lazy dog","the quick brown fox jumped over"]'},
+    {filename: 'brown-fox', output: '["the quick brown fox jumped over","the lazy dog"]'},
+    {filename: 'lazy-dog', output: '["the quick brown fox jumped over","over the lazy dog","the quick fox"]'},
+    {filename: 'sentence-division', output: '["the quick brown fox jumped over","peeved to be"]'},
 ];
 
 
