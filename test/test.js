@@ -3,20 +3,26 @@ const expect = require('chai').expect;
 
 let run = require('../run4');
 
+const resources = [
+    {filename: 'brown-fox', output: '["the lazy dog","the quick brown fox jumped over"]'},
+    {filename: 'lazy-dog', output: '["the lazy dog","the quick brown fox jumped over"]'},
+];
+
 
 describe('test algorithms', () => {
 
-    it('run4', (done) => {
-        fs.readFile(__dirname + '/resources/brown-fox.txt', (err, data) => {
-            expect(err).not.exist;
+    it('run4', () => {
+        resources.forEach((resource) => {
+            let data = fs.readFileSync(`${ __dirname }/resources/${ resource.filename }.txt`);
 
             let documentString = data.toString();
             documentString = documentString.toLowerCase(); // TODO discuss handling to capitalization
 
             let output = run(documentString);
-            console.log(output);
-            return done();
-        })
+            expect(JSON.stringify(output)).equal(resource.output);
+
+            console.log(JSON.stringify(output));
+        });
     });
 
 
