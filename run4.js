@@ -2,6 +2,7 @@
 module.exports = exec;
 
 const natural = require('natural');
+const utils = require('./utils');
 
 /**
 The goal with this approach is to avoid collecting subphrases of repeated superphrases.
@@ -42,13 +43,10 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10}) {
     let repeatedPhrases = _filterSingles(grams.countsByGram).map((gramKey) => _splitKey(gramKey).join(' '));
     return repeatedPhrases;
 
-    console.log(JSON.stringify(repeatedPhrases, null, 4));
-
 
     function _generateGrams(docStr) {
         let grams = { countsByGram: {}, inDescLength: [] };
-        let sentences = docStr.split(/\.\s+/); // TODO better sentence parser
-        console.log('sentences',sentences); // TODO TODO TODO NOW address sentence split failure
+        let sentences = utils.parseSentences(docStr);
         for (let n = options.MAX_GRAM; n >= options.MIN_GRAM; n--) {
             sentences.forEach((sentence) => {
                 natural.NGrams.ngrams(sentence, n)
@@ -59,7 +57,6 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10}) {
                     });
             });
         }
-        console.log(JSON.stringify(grams.inDescLength, null, 4));
         return grams;
     }
 

@@ -1,7 +1,8 @@
 const fs = require('fs');
 const expect = require('chai').expect;
 
-let run = require('../run4');
+let run = require('../run3');
+// let run = require('../run4');
 
 const resources = [
     {filename: 'brown-fox', output: '["the quick brown fox jumped over","the lazy dog"]'},
