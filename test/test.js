@@ -22,14 +22,16 @@ describe('test algorithms', () => {
     it('run4', () => {
         _.each(resources, (expectedOutput, filename) => {
             let data = fs.readFileSync(`${ __dirname }/resources/${ filename }.txt`);
-
             let documentString = data.toString();
             documentString = documentString.toLowerCase(); // TODO discuss handling to capitalization
 
-            let output = run(documentString);
-            expect(JSON.stringify(output)).equal(expectedOutput);
+            _.each(solutions, (execSolution, solutionKey) => {
 
-            console.log(JSON.stringify(output));
+                let output = execSolution(documentString);
+                expect(JSON.stringify(output)).equal(expectedOutput);
+                console.log(filename, solutionKey, JSON.stringify(output));
+            });
+
         });
     });
 
