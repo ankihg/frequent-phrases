@@ -2,12 +2,9 @@ const fs = require('fs');
 const expect = require('chai').expect;
 const _ = require('underscore');
 
-let run = require('../run3');
-// let run = require('../run4');
-
 const solutions = {
-    'run3': require('../run3'),
-    'run4': require('../run4'),
+    'solution1': require('../solutions/solution1'),
+    'solution2': require('../solutions/solution2'),
 };
 
 const resources = {
@@ -29,10 +26,10 @@ describe('test algorithms', () => {
             documentString = documentString.toLowerCase(); // TODO discuss handling to capitalization
 
             performance[filename] = {};
-            _.each(solutions, (execSolution, solutionKey) => {
+            _.each(solutions, (solution, solutionKey) => {
 
                 let startTime = Date.now();
-                let output = execSolution(documentString);
+                let output = solution.exec(documentString);
                 let endTime = Date.now();
 
                 let unexpecedOutput = _isUnexpectedOutput(expectedOutput, output);
