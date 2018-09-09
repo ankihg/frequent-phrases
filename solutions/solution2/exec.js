@@ -30,6 +30,7 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
         let sentences = utils.parseSentences(docStr);
         for (let n = options.MAX_GRAM; n >= options.MIN_GRAM; n--) {
             sentences.forEach((sentence) => {
+                console.log(sentence.split(' ').length, n, natural.NGrams.ngrams(sentence, n).length);
                 natural.NGrams.ngrams(sentence, n)
                     .forEach((gram) => {
                         let gramKey = _key(gram);
