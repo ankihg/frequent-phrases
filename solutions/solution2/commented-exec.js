@@ -5,9 +5,12 @@ const natural = require('natural');
 const utils = require('../utils');
 
 function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
+
+    /*
+        
+    */
     let grams = _generateGrams(docStr);
-    // console.log('grams');
-    // console.log(grams);
+
     grams.inDescLength.forEach((gramKey) => {
         if (! (gramKey in grams.countsByGram)) return;
 
