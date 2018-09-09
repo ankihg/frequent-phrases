@@ -5,6 +5,7 @@ const natural = require('natural');
 const utils = require('../utils');
 
 function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
+    docStr = utils.cleanDocument(docStr);
 
     let sentences = utils.parseSentences(docStr);
 

@@ -25,7 +25,6 @@ describe('test algorithms', function() {
         _.each(resources, (expectedOutput, filename) => {
             let data = fs.readFileSync(`${ __dirname }/resources/${ filename }.txt`);
             let documentString = data.toString();
-            documentString = documentString.toLowerCase(); // TODO discuss handling to capitalization
 
             performance[filename] = {};
             _.each(solutions, (solution, solutionKey) => {
