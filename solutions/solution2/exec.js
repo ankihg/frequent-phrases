@@ -4,15 +4,6 @@ module.exports = exec;
 const natural = require('natural');
 const utils = require('../utils');
 
-/**
-The goal with this approach is to avoid collecting subphrases of repeated superphrases.
-
-This requires visiting phrases first, so you know what subphrases to avoid.
-
-The `_generateGrams` function handles this by returning an array (`inDescLength`) with longer phrases first.
-
-**/
-
 function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
     let grams = _generateGrams(docStr);
 

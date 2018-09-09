@@ -2,7 +2,11 @@
 module.exports = {
     exec: require('./exec'),
     description: `
-        
+        The goal with this approach is to avoid collecting subphrases of repeated superphrases.
+
+        This requires visiting phrases first, so you know what subphrases to avoid.
+
+        The \`_generateGrams\` function handles this by returning an array (\`inDescLength\`) with longer phrases first.
     `,
     pseudo: `
         gen all grams from MIN_GRAM to MAX_GRAM
