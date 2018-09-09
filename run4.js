@@ -27,9 +27,7 @@ for (gram in gramOrder)
 
 **/
 
-function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10}) {
-    console.log(docStr);
-    console.log(options);
+function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
     let grams = _generateGrams(docStr);
 
     grams.inDescLength.forEach((gramKey) => {
@@ -40,8 +38,11 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10}) {
             _deleteSubgrams(gramKey, grams.countsByGram);
     });
 
-    let repeatedPhrases = _filterSingles(grams.countsByGram).map((gramKey) => _splitKey(gramKey).join(' '));
-    return repeatedPhrases;
+    return Object.keys(grams.countsByGram)
+            .filter((gramKey) => grams.countsByGram[gramKey] > 1)
+            .sort((gramKeyA, gramKeyB) => grams.countsByGram[gramKeyB] - grams.countsByGram[gramKeyA])
+            .slice(0, options.N_TOP)
+            .map((gramKey) => _splitKey(gramKey).join(' '));
 
 
     function _generateGrams(docStr) {
@@ -69,11 +70,6 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10}) {
                     delete keyHolder[gramKey];
                 });
         }
-    }
-
-    function _filterSingles(countsByGram) {
-        return Object.keys(countsByGram)
-                    .filter((gramKey) => countsByGram[gramKey] > 1);
     }
 
     function _key(gram) {
