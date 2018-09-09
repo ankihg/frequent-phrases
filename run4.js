@@ -38,9 +38,6 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
             _deleteSubgrams(gramKey, grams.countsByGram);
     });
 
-    // require('fs').writeFile('./run4.json', JSON.stringify(grams.countsByGram, null, 4), (err) => {});
-    // console.log('grams.countsByGram');
-    // console.log(JSON.stringify(grams.countsByGram, null, 4));
 
     return Object.keys(grams.countsByGram)
             .filter((gramKey) => grams.countsByGram[gramKey] > 1)
