@@ -25,21 +25,21 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
 
 
 
-    let temp = Object.keys(result)
-                    .filter((gramKey) => result[gramKey] > 1)
-                    .sort((gramKeyA, gramKeyB) =>  _splitKey(gramKeyB).length - _splitKey(gramKeyA).length)
-                    .filter((potentialSubGramKey, i, phrasesInDescLength) => {
-                        for (let j = 0; j < i; j++) { // TODO switch to while loop
-                            let potentialSuperGram = phrasesInDescLength[j];
-                            if (_splitKey(potentialSubGramKey).length >= _splitKey(potentialSuperGram).length) break;
-                            if (potentialSuperGram.includes(potentialSubGramKey))
-                                return false;
-                        }
-                        return true;
-                    })
-                    .map((gramKey) => { return {phrase: gramKey, count: result[gramKey]} });
+    // let temp = Object.keys(result)
+    //                 .filter((gramKey) => result[gramKey] > 1)
+    //                 .sort((gramKeyA, gramKeyB) =>  _splitKey(gramKeyB).length - _splitKey(gramKeyA).length)
+    //                 .filter((potentialSubGramKey, i, phrasesInDescLength) => {
+    //                     for (let j = 0; j < i; j++) { // TODO switch to while loop
+    //                         let potentialSuperGram = phrasesInDescLength[j];
+    //                         if (_splitKey(potentialSubGramKey).length >= _splitKey(potentialSuperGram).length) break;
+    //                         if (potentialSuperGram.includes(potentialSubGramKey))
+    //                             return false;
+    //                     }
+    //                     return true;
+    //                 })
+    //                 .map((gramKey) => { return {phrase: gramKey, count: result[gramKey]} });
 
-    require('fs').writeFile('./run3.json', JSON.stringify(temp, null, 4), (err) => {});
+    // require('fs').writeFile('./run3.json', JSON.stringify(temp, null, 4), (err) => {});
     // console.log('temp');
     // console.log(JSON.stringify(temp, null, 4));
 
@@ -57,8 +57,8 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
                     })
                     .sort((gramKeyA, gramKeyB) =>  {return result[gramKeyB] - result[gramKeyA]})
                     .slice(0, options.N_TOP)
-                    .map((gramKey) => { return {phrase: _splitKey(gramKey).join(' '), count: result[gramKey]} });
-                    // .map((gramKey) => _splitKey(gramKey).join(' '));
+                    // .map((gramKey) => { return {phrase: _splitKey(gramKey).join(' '), count: result[gramKey]} });
+                    .map((gramKey) => _splitKey(gramKey).join(' '));
 
 
     function _generateGrams(sentence) {

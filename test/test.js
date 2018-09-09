@@ -11,10 +11,11 @@ const solutions = {
 };
 
 const resources = {
-    'brown-fox': ["the quick brown fox jumped over","the lazy dog"],
-    'lazy-dog': ["the quick brown fox jumped over","over the lazy dog","the quick fox"],
-    'sentence-division': ["the quick brown fox jumped over","peeved to be"],
-    'nytimes-oped': [ 'do what we can to', 'the work of the', 'to do what', 'the president s', 'of the administration', 'the white house', 'that many of' ],
+    'brown-fox': { include: ["the quick brown fox jumped over","the lazy dog"] },
+    'lazy-dog': { include: ["the quick brown fox jumped over","over the lazy dog","the quick fox"] },
+    'sentence-division': { include: ["the quick brown fox jumped over","peeved to be"] },
+    'nytimes-oped': { include: [ 'do what we can to', 'the work of the', 'to do what', 'the president s', 'of the administration', 'the white house', 'that many of' ] },
+    'perf-test': { include: [ 'to see the', 'mother said norman', 'in the evening' ] },
 };
 
 const performance = {};
@@ -35,7 +36,7 @@ describe('test algorithms', () => {
                 let endTime = Date.now();
 
                 let unexpecedOutput = _isUnexpectedOutput(expectedOutput, output);
-                if (unexpecedOutput) console.log(unexpecedOutput);
+                if (unexpecedOutput) console.log(filename, solutionKey, unexpecedOutput);
                 expect(unexpecedOutput).not.exist;
                 performance[filename][solutionKey] = endTime - startTime;
 
@@ -50,8 +51,8 @@ describe('test algorithms', () => {
 });
 
 function _isUnexpectedOutput(expected, output) {
-    if (output.length !== expected.length) return { expected, output };
+    if (output.length < expected.include.length) return { expected, output };
     let outputValueHash = output.reduce((hash, value) => { hash[value] = true; return hash }, {});
-    for (let expectedValue of expected)
+    for (let expectedValue of expected.include)
         if (! (expectedValue in outputValueHash)) return { expected, output };
 }
