@@ -13,8 +13,8 @@ const solutions = {
 const resources = {
     'brown-fox': ["the quick brown fox jumped over","the lazy dog"],
     'lazy-dog': ["the quick brown fox jumped over","over the lazy dog","the quick fox"],
-    'sentence-division': ["the quick brown fox jumped over","peeved to be", "plz"],
-    'nytimes-oped': '[]',
+    'sentence-division': ["the quick brown fox jumped over","peeved to be"],
+    'nytimes-oped': [ 'do what we can to', 'the work of the', 'to do what', 'the president s', 'of the administration', 'the white house', 'that many of' ],
 };
 
 const performance = {};
@@ -34,8 +34,9 @@ describe('test algorithms', () => {
                 let output = execSolution(documentString);
                 let endTime = Date.now();
 
-                console.log(_isUnexpectedOutput(expectedOutput, output));
-                expect(_isUnexpectedOutput(expectedOutput, output)).not.exist;
+                let unexpecedOutput = _isUnexpectedOutput(expectedOutput, output);
+                if (unexpecedOutput) console.log(unexpecedOutput);
+                expect(unexpecedOutput).not.exist;
                 performance[filename][solutionKey] = endTime - startTime;
 
             });
