@@ -13,14 +13,15 @@ const resources = {
     'sentence-division': { include: ["the quick brown fox jumped over","peeved to be"] },
     'nytimes-oped': { include: [ 'do what we can to', 'the work of the', 'to do what', 'the president s', 'of the administration', 'the white house', 'that many of' ] },
     'perf-test': { include: [ 'to see the', 'mother said norman', 'in the evening' ] },
-    'perf-test-2': { include: [ 'to see the', 'mother said norman', 'in the evening' ] },
+    'perf-test-2': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
 };
 
 const performance = {};
 
-describe('test algorithms', () => {
+describe('test algorithms', function() {
 
-    it('run4', () => {
+    it('run4', function() {
+        this.timeout(18000);
         _.each(resources, (expectedOutput, filename) => {
             let data = fs.readFileSync(`${ __dirname }/resources/${ filename }.txt`);
             let documentString = data.toString();
@@ -32,10 +33,11 @@ describe('test algorithms', () => {
                 let startTime = Date.now();
                 let output = solution.exec(documentString);
                 let endTime = Date.now();
+                // if (filename === 'perf-test-2') console.log(JSON.stringify(output));
 
                 let unexpecedOutput = _isUnexpectedOutput(expectedOutput, output);
                 if (unexpecedOutput) console.log(filename, solutionKey, unexpecedOutput);
-                // expect(unexpecedOutput).not.exist;
+                expect(unexpecedOutput).not.exist;
                 performance[filename][solutionKey] = endTime - startTime;
 
             });
