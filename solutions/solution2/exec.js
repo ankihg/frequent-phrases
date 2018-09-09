@@ -23,8 +23,8 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
             .filter((gramKey) => grams.counts[gramKey] > 1)
             .sort((gramKeyA, gramKeyB) => grams.counts[gramKeyB] - grams.counts[gramKeyA])
             .slice(0, options.N_TOP)
-            // .map((gramKey) => { return {phrase: _splitKey(gramKey).join(' '), count: grams.counts[gramKey]}});
-            .map((gramKey) => _splitKey(gramKey).join(' '));
+            // .map((gramKey) => { return {phrase: utils.splitKey(gramKey).join(' '), count: grams.counts[gramKey]}});
+            .map((gramKey) => utils.splitKey(gramKey).join(' '));
 
 
     function _generateGrams(docStr) {
@@ -34,7 +34,7 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
             sentences.forEach((sentence) => {
                 natural.NGrams.ngrams(sentence, n)
                     .forEach((gram) => {
-                        let gramKey = _key(gram);
+                        let gramKey = utils.key(gram);
                         grams.validPhrases[gramKey] = true;
                         grams.inDescLength.push(gramKey);
                     });
@@ -44,21 +44,13 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
     }
 
     function _deleteSubgrams(gramKey, keyHolder) {
-        let gram = _splitKey(gramKey);
+        let gram = utils.splitKey(gramKey);
         for (let n = options.MIN_GRAM; n < gram.length; n++) {
             natural.NGrams.ngrams(gram, n)
                 .forEach((gram) => {
-                    let gramKey = _key(gram);
+                    let gramKey = utils.key(gram);
                     delete keyHolder[gramKey];
                 });
         }
-    }
-
-    function _key(gram) {
-      return gram.join('|');
-    }
-
-    function _splitKey(gramKey) {
-      return gramKey.split('|');
     }
 }

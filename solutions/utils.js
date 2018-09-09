@@ -4,4 +4,11 @@ module.exports = {
         // TODO better sentence parser
         return str.split(/\.\s+/);
     },
+
+    key(gram) {
+        return gram.join('|');
+    },
+    splitKey(gramKey) {
+        return gramKey.split('|');
+    }
 };
