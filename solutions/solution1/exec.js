@@ -21,27 +21,27 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
     }, {});
 
     return Object.keys(result)
-                    // remove non-repeated phrases
-                    .filter((gramKey) => result[gramKey] > 1)
-                    // order by word length to assist with subphrase filtering
-                    .sort((gramKeyA, gramKeyB) =>  _splitKey(gramKeyB).length - _splitKey(gramKeyA).length)
-                    // filter subphrases of repeated phrases
-                    .filter((potentialSubGramKey, i, phrasesInDescLength) => {
-                        let subgramWordLength = _splitKey(potentialSubGramKey).length;
-                        let j = -1;
-                        while (++j < i && subgramWordLength < _splitKey(phrasesInDescLength[j]).length) {
-                            let potentialSuperGram = phrasesInDescLength[j];
-                            if (potentialSuperGram.includes(potentialSubGramKey))
-                                return false;
-                        }
-                        return true;
-                    })
-                    // sort phrases by count
-                    .sort((gramKeyA, gramKeyB) =>  {return result[gramKeyB] - result[gramKeyA]})
-                    // select top N
-                    .slice(0, options.N_TOP)
-                    // .map((gramKey) => { return {phrase: _splitKey(gramKey).join(' '), count: result[gramKey]} });
-                    .map((gramKey) => _splitKey(gramKey).join(' '));
+            // remove non-repeated phrases
+            .filter((gramKey) => result[gramKey] > 1)
+            // order by word length to assist with subphrase filtering
+            .sort((gramKeyA, gramKeyB) =>  _splitKey(gramKeyB).length - _splitKey(gramKeyA).length)
+            // filter subphrases of repeated phrases
+            .filter((potentialSubGramKey, i, phrasesInDescLength) => {
+                let subgramWordLength = _splitKey(potentialSubGramKey).length;
+                let j = -1;
+                while (++j < i && subgramWordLength < _splitKey(phrasesInDescLength[j]).length) {
+                    let potentialSuperGram = phrasesInDescLength[j];
+                    if (potentialSuperGram.includes(potentialSubGramKey))
+                        return false;
+                }
+                return true;
+            })
+            // sort phrases by count
+            .sort((gramKeyA, gramKeyB) =>  {return result[gramKeyB] - result[gramKeyA]})
+            // select top N
+            .slice(0, options.N_TOP)
+            // .map((gramKey) => { return {phrase: _splitKey(gramKey).join(' '), count: result[gramKey]} });
+            .map((gramKey) => _splitKey(gramKey).join(' '));
 
 
     function _generateGrams(sentence) {

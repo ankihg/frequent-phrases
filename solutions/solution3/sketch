@@ -1,0 +1,47 @@
+trie of suffixes
+https://www.geeksforgeeks.org/pattern-searching-using-trie-suffixes/
+
+the quick cat loves me
+i love the quick cat who loves me
+a cat who loves me
+N RANGE 3 - 5
+
+
+quick cat loves
+
+
+
+
+
+''
+    the quick cat { 2 }
+        quick cat loves { 1 }
+            cat loves me { 1 }
+
+        who { 1 }
+            loves { 1 }
+
+
+    quick cat loves { 1 }
+        me { 1 }
+
+    cat loves me { 1 }
+
+    i love the { 1 }
+        love the quick { 1 }
+            the quick cat { 1 }
+
+    love the quick { 1 }
+        the quick cat { 1 }
+            quick cat who { 1 }
+
+    quick cat who { 1 }
+        cat who loves { 1 }
+            who loves me { 1 }
+
+    cat who loves { 2 }
+        who loves me { 2 }
+
+    a cat who {1}
+        cat who loves { 1 }
+            who loves me { 1 }
