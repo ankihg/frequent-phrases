@@ -3,9 +3,8 @@ const expect = require('chai').expect;
 const _ = require('underscore');
 
 const solutions = {
-    // 'solution1': require('../solutions/solution1'),
+    'solution1': require('../solutions/solution1'),
     'solution2': require('../solutions/solution2'),
-    'solution2.2': require('../solutions/solution2.2'),
 };
 
 const resources = {

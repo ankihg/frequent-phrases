@@ -2,32 +2,13 @@
 module.exports = exec;
 
 const natural = require('natural');
-const utils = require('./utils');
-
-/**
-The goal with this approach is to avoid collecting subphrases of repeated superphrases.
-
-This requires visiting phrases first, so you know what subphrases to avoid.
-
-The `_generateGrams` function handles this by returning an array (`inDescLength`) with longer phrases first.
-
-
-TODO idea, plz shoot holes
-
-gen all grams from options.MIN_GRAM to options.MAX_GRAM
-build hash of grams to count=0 [countsByGram]
-build gramOrder array that has grams by length, longests first
-for (gram in gramOrder)
-    if (gram not in countsByGram) continue;
-
-    countsByGram[gram]++
-    if (countsByGram[gram] > 1)
-        gen subgrams of all length
-        delete each subgram from countsByGram
-
-**/
+const utils = require('../utils');
 
 function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
+
+    /*
+        
+    */
     let grams = _generateGrams(docStr);
 
     grams.inDescLength.forEach((gramKey) => {
