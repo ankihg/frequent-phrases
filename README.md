@@ -279,6 +279,11 @@ Capitalization is handled by lowercasing the entire document string before proce
 
 
 ## Run
+To install dependencies
+```
+npm install
+```
+
 To run tests
 ```
 mocha
