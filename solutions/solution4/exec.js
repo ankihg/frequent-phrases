@@ -48,8 +48,8 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
 
     }, {});
 
-    console.log('tree');
-    console.log(JSON.stringify(tree, null, 4));
+    // console.log('tree');
+    // console.log(JSON.stringify(tree, null, 4));
 
     let result = Object.keys(tree).
         reduce((result, minGramKey) => {
@@ -69,10 +69,11 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
 
         }, {});
 
-    console.log('result');
-    console.log(JSON.stringify(result, null, 4));
-
-    return
+    // console.log('result');
+    // console.log(JSON.stringify(result, null, 4));
+    // BUG results aren't right
+    return Object.keys(result)
+                .map((gramKey) => utils.splitKey(gramKey).join(' '));
 
     // let grams = _generateGrams(docStr);
     // // console.log('grams');

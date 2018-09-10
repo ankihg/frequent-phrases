@@ -3,8 +3,66 @@ https://www.geeksforgeeks.org/pattern-searching-using-trie-suffixes/
 
 the quick cat loves me
 i love the quick cat who loves me
+the quick cat loves tad
 a cat who loves me
 N RANGE 3 - 5
+
+
+the quick cat {2}
+    the quick cat loves {2}
+        the quick cat loves me {1}
+        the quick cat loves tad {1}
+
+    love the quick cat {1}
+        i love the quick cat {1}
+    the quick cat who {1}
+        the quick cat who loves me {1}
+
+quick cat loves {1}
+        the quick cat loves
+            the quick cat loves me {1}
+
+        quick cat loves me {1}
+            the quick cat loves me {1}
+
+
+
+        the quick cat 2
+        quick cat loves
+    the quick cat loves
+        quick cat loves
+        cat loves me
+    quick cat loves me
+the quick cat loves me
+
+
+
+keys(result) filter where count < 2
+depth first traverse
+    while count > 1, keep traversing
+    return prev phrase (last phrase with count > 1)
+// must ommit duplicates from traversal result, dont sum
+
+
+
+
+
+
+
+
+    i love the quick
+
+    love the quick cat
+        love the quick
+i love the quick cat
+
+love the quick cat who
+
+the quick cat who loves
+
+
+
+
 
 
 quick cat loves
