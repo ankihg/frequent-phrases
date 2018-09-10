@@ -1,8 +1,8 @@
 'use strict';
 const natural = require('natural');
-const tokenizer = new natural.TreebankWordTokenizer();
+const tokenizer = new natural.WordTokenizer();
 
-module.exports = {
+const self = module.exports = {
     cleanDocument(documentString) {
         return documentString.toLowerCase(); // TODO discuss handling to capitalization
     },
@@ -14,7 +14,7 @@ module.exports = {
         return tokenizer.tokenize(str);
     },
     ngrams(phrase, n) {
-        return natural.NGrams.ngrams(phrase, n)
+        return natural.NGrams.ngrams(Array.isArray(phrase) ? phrase : self.tokenize(phrase), n);
     },
 
     key(gram) {
