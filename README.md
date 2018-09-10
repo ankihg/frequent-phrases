@@ -54,7 +54,7 @@ The following is JSON showing the performance of the solutions on test resources
 ```
 {
     "brown-fox": {
-        "numWords": 49,
+        "numWords": 53,
         "expect": {
             "include": [
                 "the quick brown fox jumped over",
@@ -83,7 +83,7 @@ The following is JSON showing the performance of the solutions on test resources
         }
     },
     "lazy-dog": {
-        "numWords": 74,
+        "numWords": 81,
         "expect": {
             "include": [
                 "the quick brown fox jumped over",
@@ -109,11 +109,11 @@ The following is JSON showing the performance of the solutions on test resources
                 "over the lazy dog",
                 "the quick fox"
             ],
-            "runtime": 2
+            "runtime": 3
         }
     },
     "sentence-division": {
-        "numWords": 49,
+        "numWords": 53,
         "expect": {
             "include": [
                 "the quick brown fox jumped over",
@@ -136,7 +136,7 @@ The following is JSON showing the performance of the solutions on test resources
         }
     },
     "nytimes-oped": {
-        "numWords": 1075,
+        "numWords": 1149,
         "expect": {
             "include": [
                 "trump ’ s",
@@ -156,7 +156,7 @@ The following is JSON showing the performance of the solutions on test resources
                 "of the administration",
                 "do what we can to"
             ],
-            "runtime": 22
+            "runtime": 25
         },
         "solution2": {
             "output": [
@@ -175,7 +175,7 @@ The following is JSON showing the performance of the solutions on test resources
         }
     },
     "perf-test": {
-        "numWords": 39729,
+        "numWords": 41943,
         "expect": {
             "include": [
                 "down the river"
@@ -194,7 +194,7 @@ The following is JSON showing the performance of the solutions on test resources
                 "the fort , ",
                 "as it is"
             ],
-            "runtime": 2470
+            "runtime": 2468
         },
         "solution2": {
             "output": [
@@ -209,11 +209,11 @@ The following is JSON showing the performance of the solutions on test resources
                 ",  in which",
                 "down the river"
             ],
-            "runtime": 497
+            "runtime": 508
         }
     },
     "perf-test-2": {
-        "numWords": 75722,
+        "numWords": 84209,
         "expect": {
             "include": [
                 "the poet ’ s",
@@ -234,7 +234,7 @@ The following is JSON showing the performance of the solutions on test resources
                 ",  and in",
                 ",  as a"
             ],
-            "runtime": 27358
+            "runtime": 27810
         },
         "solution2": {
             "output": [
@@ -249,7 +249,7 @@ The following is JSON showing the performance of the solutions on test resources
                 ",  and which",
                 "the poet ’ s"
             ],
-            "runtime": 1065
+            "runtime": 1056
         }
     }
 }

@@ -2,7 +2,7 @@ const fs = require('fs');
 const expect = require('chai').expect;
 const _ = require('underscore');
 const natural = require('natural');
-const tokenizer = new natural.TreebankWordTokenizer();
+const tokenizer = new natural.WordPunctTokenizer();
 
 const solutions = {
     'solution1': require('../solutions/solution1'),
