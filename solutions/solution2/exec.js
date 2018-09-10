@@ -23,13 +23,9 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
         repeated: [],
     });
 
-    // console.log('result.counts 2');
-    // console.log(JSON.stringify(result.counts, null, 4));
-
     return result.repeated
             .sort((gramKeyA, gramKeyB) => result.counts[gramKeyB] - result.counts[gramKeyA])
             .slice(0, options.N_TOP)
-            // .map((gramKey) => { return {phrase: utils.splitKey(gramKey).join(' '), count: result.counts[gramKey]}});
             .map((gramKey) => utils.splitKey(gramKey).join(' '));
 
 

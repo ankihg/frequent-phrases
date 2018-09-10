@@ -7,7 +7,6 @@ const tokenizer = new natural.TreebankWordTokenizer();
 const solutions = {
     'solution1': require('../solutions/solution1'),
     'solution2': require('../solutions/solution2'),
-    // 'solution3': require('../solutions/solution3'),
 };
 
 const resources = {
@@ -49,7 +48,6 @@ describe('test algorithms', function() {
                 let startTime = Date.now();
                 let output = solution.exec(documentString);
                 let endTime = Date.now();
-                // if (filename === 'perf-test-2') console.log(JSON.stringify(output));
 
                 let unexpecedOutput = _isUnexpectedOutput(expectedOutput, output);
                 if (unexpecedOutput) console.log(filename, solutionKey, unexpecedOutput);
@@ -63,6 +61,7 @@ describe('test algorithms', function() {
         });
 
         console.log('\n\n\n');
+        console.log('PERFORMANCE SUMMARY');
         console.log(JSON.stringify(performance, null, 4));
     });
 

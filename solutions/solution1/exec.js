@@ -25,9 +25,6 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
         repeated: [],
     });
 
-    // console.log('result.counts 1');
-    // console.log(JSON.stringify(result.counts, null, 4));
-
     return result.repeated
             // order by word length to assist with subphrase filtering
             .sort((gramKeyA, gramKeyB) =>  utils.splitKey(gramKeyB).length - utils.splitKey(gramKeyA).length)
@@ -46,7 +43,7 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
             .sort((gramKeyA, gramKeyB) =>  {return result.counts[gramKeyB] - result.counts[gramKeyA]})
             // select top N
             .slice(0, options.N_TOP)
-            // .map((gramKey) => { return {phrase: utils.splitKey(gramKey).join(' '), count: result.counts[gramKey]} });
+            // format output
             .map((gramKey) => utils.splitKey(gramKey).join(' '));
 
 
