@@ -14,3 +14,5 @@ I decided to do this rather than excluding them because punctuation can represen
 
 I also decided that punctuation should not be included by grouping
 with the word it's attached to because the punctuation is not acting on the level of that word.
+
+I would consider using a different tokenizer to treat words split by an apostrophe as one word because it leads to insignificant three letter phrases like `it ' s`. Also, because some phrases split at the apostrophe don't have meaning on their own, like `wasn` in `wasn ' t`.
