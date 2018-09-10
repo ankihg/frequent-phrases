@@ -5,17 +5,24 @@ const natural = require('natural');
 const tokenizer = new natural.TreebankWordTokenizer();
 
 const solutions = {
-    // 'solution1': require('../solutions/solution1'),
-    // 'solution2': require('../solutions/solution2'),
-    'solution3': require('../solutions/solution3'),
+    'solution1': require('../solutions/solution1'),
+    'solution2': require('../solutions/solution2'),
+    // 'solution3': require('../solutions/solution3'),
 };
 
 const resources = {
-    'brown-fox': { include: ["the quick brown fox jumped over","the lazy dog"] },
-    // 'lazy-dog': { include: ["the quick brown fox jumped over","over the lazy dog","the quick fox"] },
-    // 'sentence-division': { include: ["the quick brown fox jumped over","peeved to be"] },
-    // 'nytimes-oped': { include: [ 'trump ’ s', 'it ’ s' ] },
-    // 'perf-test': { include: [ 'to see the', 'mother said norman', 'in the evening' ] },
+    'brown-fox': { include: ["the quick brown fox jumped over","the lazy dog"], exclude: ["the quick brown","quick brown fox","the quick brown fox jumped","the lazy"] },
+    'lazy-dog': { include: ["the quick brown fox jumped over","over the lazy dog","the quick fox"], exclude: ["the lazy dog", "the quick brown fox"] },
+    'sentence-division': { include: ["the quick brown fox jumped over","peeved to be"] },
+    'nytimes-oped': { include: [ 'trump ’ s', 'it ’ s' ] },
+    // 'perf-test': {
+    //     prepare: _formantDocumentString,
+    //     expect: { include: [ 'down the river' ] },
+    // },
+    // 'perf-test-2': {
+    //     prepare: _formantDocumentString,
+    //     expect: { include: [ 'the poet ’ s', 'o ’ er the', '’ d to' ] },
+    // },
     // 'perf-test-2': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
     // 'perf-test-3': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
 };
@@ -25,10 +32,13 @@ const performance = {};
 describe('test algorithms', function() {
 
     it('run4', function() {
-        this.timeout(18000);
-        _.each(resources, (expectedOutput, filename) => {
+        this.timeout(30000);
+        _.each(resources, (file, filename) => {
+            let prepare = file.prepare || ((a) => a);
+            let expectedOutput = file.expect || file;
+
             let data = fs.readFileSync(`${ __dirname }/resources/${ filename }.txt`);
-            let documentString = data.toString();
+            let documentString = prepare(data.toString());
 
             performance[filename] = {
                 numWords: tokenizer.tokenize(documentString).length,
@@ -42,7 +52,7 @@ describe('test algorithms', function() {
 
                 let unexpecedOutput = _isUnexpectedOutput(expectedOutput, output);
                 if (unexpecedOutput) console.log(filename, solutionKey, unexpecedOutput);
-                // expect(unexpecedOutput).not.exist;
+                expect(unexpecedOutput).not.exist;
                 performance[filename][solutionKey] = {
                     output: output,
                     runtime: endTime - startTime,
@@ -61,6 +71,12 @@ describe('test algorithms', function() {
 function _isUnexpectedOutput(expected, output) {
     if (output.length < expected.include.length) return { expected, output };
     let outputValueHash = output.reduce((hash, value) => { hash[value] = true; return hash }, {});
-    for (let expectedValue of expected.include)
+    for (let expectedValue of expected.include || [])
         if (! (expectedValue in outputValueHash)) return { expected, output };
+    for (let expectedValue of expected.exclude || [])
+        if (expectedValue in outputValueHash) return { expected, output };
+}
+
+function _formantDocumentString(documentString) {
+    return documentString.replace(/\n/g, ' ')
 }
