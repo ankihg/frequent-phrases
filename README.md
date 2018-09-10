@@ -24,6 +24,7 @@ I would consider using a different tokenizer to treat words split by an apostrop
 
 
 ### Capitalization
+Capitalization is handled by lowercasing the entire document string before processing. My prime motivation in lowercasing is to remove the capitalization of the first letter of each sentence because it has no semantic value. For other occurrences of capitalization, particularly proper nouns, I could see handling it either way. Here I have treated proper nouns the same regardless of capitalization.
 
 
 ## Run
