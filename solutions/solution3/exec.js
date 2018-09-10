@@ -10,16 +10,16 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 5, N_TOP: 10}) {
 
     let sentences = utils.parseSentences(docStr);
     let tree = sentences.reduce((lookup, sentence) => {
-        console.log('\n\n\n');
+        // console.log('\n\n\n');
         let words = tokenizer.tokenize(sentence);
 
         for (let startIndex = 0; startIndex <= words.length - options.MIN_GRAM; startIndex++) {
-            console.log('\n');
+            // console.log('\n');
 
             let endIndex = startIndex + options.MIN_GRAM;
 
             let gram = words.slice(startIndex, endIndex);
-            console.log('i', gram);
+            // console.log('i', gram);
             let gramKey = utils.key(gram);
             lookup[gramKey] = lookup[gramKey] || {count: 0, next: {}};
             lookup[gramKey].count++;
@@ -29,7 +29,7 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 5, N_TOP: 10}) {
             let forwardIndex = endIndex;
             while (forwardIndex < words.length && forwardIndex < (startIndex + options.MAX_GRAM)) {
                 let gram = words.slice(startIndex, forwardIndex + 1);
-                console.log('f', gram);
+                // console.log('f', gram);
                 let gramKey = utils.key(gram);
                 node[gramKey] = node[gramKey] || {count: 0, next: {}};
                 node[gramKey].count++;
@@ -41,7 +41,7 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 5, N_TOP: 10}) {
             let backIndex = startIndex - 1;
             while (backIndex >= 0 && (options.MAX_GRAM >= (endIndex - backIndex))) {
                 let gram = words.slice(backIndex, endIndex);
-                console.log('b', gram);
+                // console.log('b', gram);
                 let gramKey = utils.key(gram);
                 node[gramKey] = node[gramKey] || {count: 0, next: {}};
                 node[gramKey].count++;
