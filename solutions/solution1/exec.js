@@ -1,7 +1,6 @@
 'use strict';
 module.exports = exec;
 
-const natural = require('natural');
 const utils = require('../utils');
 
 function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
@@ -51,7 +50,7 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
     function _generateGrams(sentence) {
         let grams = [];
         for (let n = options.MIN_GRAM; n <= options.MAX_GRAM; n++) {
-            grams = grams.concat(natural.NGrams.ngrams(sentence, n));
+            grams = grams.concat(utils.ngrams(sentence, n));
         }
         return grams;
     }

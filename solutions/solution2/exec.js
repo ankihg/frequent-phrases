@@ -1,7 +1,6 @@
 'use strict';
 module.exports = exec;
 
-const natural = require('natural');
 const utils = require('../utils');
 
 function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
@@ -36,7 +35,7 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
         let sentences = utils.parseSentences(docStr);
         for (let n = options.MAX_GRAM; n >= options.MIN_GRAM; n--) {
             sentences.forEach((sentence) => {
-                natural.NGrams.ngrams(sentence, n)
+                utils.ngrams(sentence, n)
                     .forEach((gram) => {
                         let gramKey = utils.key(gram);
                         grams.validPhrases[gramKey] = true;
@@ -50,7 +49,7 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
     function _deleteSubgrams(gramKey, keyHolder) {
         let gram = utils.splitKey(gramKey);
         for (let n = options.MIN_GRAM; n < gram.length; n++) {
-            natural.NGrams.ngrams(gram, n)
+            utils.ngrams(gram, n)
                 .forEach((gram) => {
                     let gramKey = utils.key(gram);
                     delete keyHolder[gramKey];

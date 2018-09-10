@@ -42,7 +42,7 @@ describe('test algorithms', function() {
 
                 let unexpecedOutput = _isUnexpectedOutput(expectedOutput, output);
                 if (unexpecedOutput) console.log(filename, solutionKey, unexpecedOutput);
-                // expect(unexpecedOutput).not.exist;
+                expect(unexpecedOutput).not.exist;
                 performance[filename][solutionKey] = {
                     output: output,
                     runtime: endTime - startTime,
