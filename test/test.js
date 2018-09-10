@@ -22,8 +22,6 @@ const resources = {
         prepare: _formantDocumentString,
         expect: { include: [ 'the poet ’ s', 'o ’ er the', '’ d to' ] },
     },
-    // 'perf-test-2': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
-    // 'perf-test-3': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
 };
 
 const performance = {};
