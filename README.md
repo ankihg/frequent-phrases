@@ -8,6 +8,7 @@ The cleanup work to be done after counting ends up being quite complicated and e
 
 I don't recommend this approach.
 
+#### Pseudocode
 ```
 generate all phrases from MIN_LENGTH to MAX_LENGTH
 iteratate thru all phrases to gather phrase counts, collecting phrases once determined repeated
@@ -25,6 +26,7 @@ The `_generateGrams\` helper function handles this by returning an array (`inDes
 
 A possible improvement to the efficiency would be, at phrase generation time, to build a lookup from a phrase to its subphrases. That way, when you see that a phrase has repeated you can lookup which subphrases to delete from the valid phrases lookup, instead of regenerating the subphrases for that phrase, as the algorithm is currently doing. This would require writing a custom ngram generation function, sacrificing maintainability, so I've decided not to implement.
 
+#### Pseudocode
 ```
 gen all phrases from MIN_GRAM to MAX_GRAM
 build hash of valid phrases
