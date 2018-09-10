@@ -3,6 +3,210 @@
 ## Solutions
 
 ## Performance
+The following is JSON showing the performance of the solutions on test resources. The top-level keys are filenames found in `./test/resources/`.
+```
+{
+    "brown-fox": {
+        "numWords": 49,
+        "expect": {
+            "include": [
+                "the quick brown fox jumped over",
+                "the lazy dog"
+            ],
+            "exclude": [
+                "the quick brown",
+                "quick brown fox",
+                "the quick brown fox jumped",
+                "the lazy"
+            ]
+        },
+        "solution1": {
+            "output": [
+                "the quick brown fox jumped over",
+                "the lazy dog"
+            ],
+            "runtime": 2
+        },
+        "solution2": {
+            "output": [
+                "the quick brown fox jumped over",
+                "the lazy dog"
+            ],
+            "runtime": 2
+        }
+    },
+    "lazy-dog": {
+        "numWords": 74,
+        "expect": {
+            "include": [
+                "the quick brown fox jumped over",
+                "over the lazy dog",
+                "the quick fox"
+            ],
+            "exclude": [
+                "the lazy dog",
+                "the quick brown fox"
+            ]
+        },
+        "solution1": {
+            "output": [
+                "the quick brown fox jumped over",
+                "over the lazy dog",
+                "the quick fox"
+            ],
+            "runtime": 2
+        },
+        "solution2": {
+            "output": [
+                "the quick brown fox jumped over",
+                "over the lazy dog",
+                "the quick fox"
+            ],
+            "runtime": 2
+        }
+    },
+    "sentence-division": {
+        "numWords": 49,
+        "expect": {
+            "include": [
+                "the quick brown fox jumped over",
+                "peeved to be"
+            ]
+        },
+        "solution1": {
+            "output": [
+                "the quick brown fox jumped over",
+                "peeved to be"
+            ],
+            "runtime": 1
+        },
+        "solution2": {
+            "output": [
+                "the quick brown fox jumped over",
+                "peeved to be"
+            ],
+            "runtime": 1
+        }
+    },
+    "nytimes-oped": {
+        "numWords": 1075,
+        "expect": {
+            "include": [
+                "trump ’ s",
+                "it ’ s"
+            ]
+        },
+        "solution1": {
+            "output": [
+                "trump ’ s",
+                "it ’ s",
+                "to do what",
+                "’ s leadership",
+                "that many of",
+                "the white house",
+                "the president ’ s",
+                "in private , ",
+                "of the administration",
+                "do what we can to"
+            ],
+            "runtime": 22
+        },
+        "solution2": {
+            "output": [
+                "it ’ s",
+                "trump ’ s",
+                "the work of the",
+                "that many of",
+                "do what we can to",
+                ",  he has",
+                "the president ’ s",
+                "the white house",
+                "to do what",
+                "in private , "
+            ],
+            "runtime": 19
+        }
+    },
+    "perf-test": {
+        "numWords": 39729,
+        "expect": {
+            "include": [
+                "down the river"
+            ]
+        },
+        "solution1": {
+            "output": [
+                ",  when the",
+                ",  as they",
+                ",  from the",
+                ",  and his",
+                "down the river",
+                "in the evening",
+                ",  in which",
+                ",  for the",
+                "the fort , ",
+                "as it is"
+            ],
+            "runtime": 2470
+        },
+        "solution2": {
+            "output": [
+                ". ”   the",
+                ",  with the",
+                ",  as they",
+                ",  when the",
+                ",  from the",
+                ",  and his",
+                ",  for the",
+                ",  but the",
+                ",  in which",
+                "down the river"
+            ],
+            "runtime": 497
+        }
+    },
+    "perf-test-2": {
+        "numWords": 75722,
+        "expect": {
+            "include": [
+                "the poet ’ s",
+                "o ’ er the",
+                "’ d to"
+            ]
+        },
+        "solution1": {
+            "output": [
+                "’ d to",
+                "o ’ er the",
+                ",  and his",
+                ",  or the",
+                "the poet ’ s",
+                ",  as he",
+                ",  with the",
+                ",  and which",
+                ",  and in",
+                ",  as a"
+            ],
+            "runtime": 27358
+        },
+        "solution2": {
+            "output": [
+                "’ d to",
+                ". _ ”  ",
+                "o ’ er the",
+                ",  or the",
+                ",  and his",
+                ",  as a",
+                ",  and in",
+                ",  as he",
+                ",  and which",
+                "the poet ’ s"
+            ],
+            "runtime": 1065
+        }
+    }
+}
+```
 
 
 ## Text handling

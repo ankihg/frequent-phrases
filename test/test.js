@@ -15,14 +15,14 @@ const resources = {
     'lazy-dog': { include: ["the quick brown fox jumped over","over the lazy dog","the quick fox"], exclude: ["the lazy dog", "the quick brown fox"] },
     'sentence-division': { include: ["the quick brown fox jumped over","peeved to be"] },
     'nytimes-oped': { include: [ 'trump ’ s', 'it ’ s' ] },
-    // 'perf-test': {
-    //     prepare: _formantDocumentString,
-    //     expect: { include: [ 'down the river' ] },
-    // },
-    // 'perf-test-2': {
-    //     prepare: _formantDocumentString,
-    //     expect: { include: [ 'the poet ’ s', 'o ’ er the', '’ d to' ] },
-    // },
+    'perf-test': {
+        prepare: _formantDocumentString,
+        expect: { include: [ 'down the river' ] },
+    },
+    'perf-test-2': {
+        prepare: _formantDocumentString,
+        expect: { include: [ 'the poet ’ s', 'o ’ er the', '’ d to' ] },
+    },
     // 'perf-test-2': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
     // 'perf-test-3': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
 };
@@ -32,7 +32,7 @@ const performance = {};
 describe('test algorithms', function() {
 
     it('run4', function() {
-        this.timeout(30000);
+        this.timeout(50000);
         _.each(resources, (file, filename) => {
             let prepare = file.prepare || ((a) => a);
             let expectedOutput = file.expect || file;
@@ -42,6 +42,7 @@ describe('test algorithms', function() {
 
             performance[filename] = {
                 numWords: tokenizer.tokenize(documentString).length,
+                expect: expectedOutput,
             };
             _.each(solutions, (solution, solutionKey) => {
 
