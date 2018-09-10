@@ -8,7 +8,6 @@ module.exports = {
 
         The \`_generateGrams\` helper function handles this by returning an array (\`inDescLength\`) with longer phrases first. This will be the order that we iterate through the phrases in.
 
-
         A possible improvement to the efficiency would be, at phrase generation time, to build a lookup from a phrase to its subphrases. That way, when you see that a phrase has repeated you can lookup which subphrases to delete from the valid phrases lookup, instead of regenerating the subphrases for that phrase, as the algorithm is currently doing. This would require writing a custom ngram generation function, sacrificing maintainability, so I've decided not to implement.
     `,
     pseudo: `
@@ -22,6 +21,5 @@ module.exports = {
             if (countsByGram[gram] > 1)
                 gen subgrams of all length
                 delete each subgram from countsByGram
-
     `,
 };
