@@ -11,17 +11,15 @@ module.exports = {
         A possible improvement to the efficiency would be, at phrase generation time, to build a lookup from a phrase to its subphrases. That way, when you see that a phrase has repeated you can lookup which subphrases to delete from the valid phrases lookup, instead of regenerating the subphrases for that phrase, as the algorithm is currently doing. This would require writing a custom ngram generation function, sacrificing maintainability, so I've decided not to implement.
     `,
     pseudo: `
-        gen all phrases from MIN_GRAM to MAX_GRAM
+        generate all phrases from MIN_LENGTH to MAX_LENGTH
         build hash of valid phrases
         build phraseOrder array that has phrases by length, longests first
         for (phrase in phraseOrder)
-            if (phrase not in validPhrases) {
+            if (phrase not in validPhrases)
                 countsByGram[gram] = countsByGram[gram] || 0
                 countsByGram[gram]++
                 if (countsByGram[gram] > 1)
                     gen subphrases of all length for phrase
                     delete each subphrase from validPhrases
-            }
-
     `,
 };

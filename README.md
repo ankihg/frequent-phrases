@@ -28,7 +28,7 @@ A possible improvement to the efficiency would be, at phrase generation time, to
 
 #### Pseudocode
 ```
-gen all phrases from MIN_GRAM to MAX_GRAM
+generate all phrases from MIN_LENGTH to MAX_LENGTH
 build hash of valid phrases
 build phraseOrder array that has phrases by length, longests first
 for (phrase in phraseOrder)
