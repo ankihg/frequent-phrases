@@ -3,9 +3,9 @@ const expect = require('chai').expect;
 const _ = require('underscore');
 
 const solutions = {
-    'solution1': require('../solutions/solution1'),
+    // 'solution1': require('../solutions/solution1'),
     'solution2': require('../solutions/solution2'),
-    'solution4': require('../solutions/solution4'),
+    'solution3': require('../solutions/solution3'),
 };
 
 const resources = {
@@ -15,7 +15,7 @@ const resources = {
     'nytimes-oped': { include: [ 'do what we can to', 'the work of the', 'to do what', 'the president s', 'of the administration', 'the white house', 'that many of' ] },
     'perf-test': { include: [ 'to see the', 'mother said norman', 'in the evening' ] },
     'perf-test-2': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
-    // 'perf-test-3': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
+    'perf-test-3': { include: [ "o er the", "of shakespeare and", "the poet s", "in order to","of all the","it will be","of the eighteenth century","with all the" ] },
 };
 
 const performance = {};
