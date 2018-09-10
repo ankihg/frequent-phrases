@@ -3,7 +3,7 @@ module.exports = exec;
 
 const utils = require('../utils');
 
-function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 5, N_TOP: 10}) {
+function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 7, N_TOP: 10}) {
     docStr = utils.cleanDocument(docStr);
 
     let sentences = utils.parseSentences(docStr);
@@ -52,8 +52,22 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 5, N_TOP: 10}) {
 
     }, {});
 
-    // console.log('tree');
-    // console.log(JSON.stringify(tree, null, 4));
+
+    /*
+    tree is wrong
+    the|quick|brown|fox
+        retaliation|the|quick|brown|fox
+        then|the|quick|brown|fox
+
+        should also point to
+        the|quick|brown|fox|jumped
+        the|quick|brown|fox|refueled
+    */
+
+    console.log('tree');
+    console.log(JSON.stringify(tree, null, 4));
+    console.log('tree end');
+
 
     let result = Object.keys(tree).
         reduce((result, minGramKey) => {
@@ -68,7 +82,11 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 5, N_TOP: 10}) {
                 let nextRepeatGramKeys = Object.keys(node.next).filter((gramKey) => node.next[gramKey].count > 1);
                 if (nextRepeatGramKeys.length)
                     nextRepeatGramKeys.forEach((gramKey) => _traverse(gramKey, node.next[gramKey], result));
-                else result[gramKey] = true;
+                else {
+                    console.log(gramKey, JSON.stringify(node, null, 4));
+                    console.log('\n');
+                    result[gramKey] = true;
+                }
             }
 
         }, {});
