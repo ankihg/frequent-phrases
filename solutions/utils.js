@@ -1,8 +1,6 @@
 'use strict';
 const natural = require('natural');
-// const tokenizer = new natural.WordPunctTokenizer();
-const tokenizer = new natural.RegexpTokenizer({pattern: /(\w+|[а-я0-9_]+|\.|\!|\'|\"")/i});
-// const tokenizer = new natural.RegexpTokenizer({pattern: /\w+|\.|\!|\'|\""/});
+const tokenizer = new natural.WordPunctTokenizer();
 
 const self = module.exports = {
     cleanDocument(documentString) {
