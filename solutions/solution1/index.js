@@ -10,8 +10,7 @@ module.exports = {
     `,
     pseudo: `
         generate all phrases from MIN_LENGTH to MAX_LENGTH
-        iteratate thru all phrases to collect phrase counts
-        iterate thru all phrases to filter out non-repeated phrases
+        iteratate thru all phrases to gather phrase counts, collecting phrases once determined repeated
         filter out subphrases of repeated phrases
         sort remaining phrases by counts
         return top N

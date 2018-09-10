@@ -1,6 +1,42 @@
 # Frequent phrases
 
 ## Solutions
+### Solution One
+The goal with this solution is to have as simple a counting process as possible and leave the complicated work, like removing subphrases, to the end.
+
+The cleanup work to be done after counting ends up being quite complicated and extremely inefficient, as it requires iterating through all the phrases several times.
+
+I don't recommend this approach.
+
+```
+generate all phrases from MIN_LENGTH to MAX_LENGTH
+iteratate thru all phrases to gather phrase counts, collecting phrases once determined repeated
+filter out subphrases of repeated phrases
+sort remaining phrases by counts
+return top N
+```
+
+### Solution Two
+The goal with this approach is to avoid collecting subphrases of repeated phrases so they don't have to be filtered out at the end.
+
+This requires visiting longer phrases first, so you know what subphrases to avoid collecting.
+
+The `_generateGrams\` helper function handles this by returning an array (`inDescLength`) with longer phrases first. This will be the order that we iterate through the phrases in.
+
+A possible improvement to the efficiency would be, at phrase generation time, to build a lookup from a phrase to its subphrases. That way, when you see that a phrase has repeated you can lookup which subphrases to delete from the valid phrases lookup, instead of regenerating the subphrases for that phrase, as the algorithm is currently doing. This would require writing a custom ngram generation function, sacrificing maintainability, so I've decided not to implement.
+
+```
+gen all phrases from MIN_GRAM to MAX_GRAM
+build hash of valid phrases
+build phraseOrder array that has phrases by length, longests first
+for (phrase in phraseOrder)
+    if (phrase not in validPhrases)
+        countsByGram[gram] = countsByGram[gram] || 0
+        countsByGram[gram]++
+        if (countsByGram[gram] > 1)
+            gen subphrases of all length for phrase
+            delete each subphrase from validPhrases
+```
 
 ## Performance
 The following is JSON showing the performance of the solutions on test resources. The top-level keys are filenames found in `./test/resources/`.
