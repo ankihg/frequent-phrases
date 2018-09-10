@@ -9,21 +9,24 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
 
     let sentences = utils.parseSentences(docStr);
 
-    let result = sentences.reduce((lookup, sentence) => {
+    let result = sentences.reduce((result, sentence) => {
         let grams = _generateGrams(sentence);
 
         grams.forEach((gram) => {
             let key = utils.key(gram);
-            lookup[key] = lookup[key] || 0;
-            lookup[key]++;
+            result.counts[key] = result.counts[key] || 0;
+            result.counts[key]++;
+            if (result.counts[key] === 2)
+                result.repeated.push(key);
         });
 
-        return lookup;
-    }, {});
+        return result;
+    }, {
+        counts: {},
+        repeated: [],
+    });
 
-    return Object.keys(result)
-            // remove non-repeated phrases
-            .filter((gramKey) => result[gramKey] > 1)
+    return result.repeated
             // order by word length to assist with subphrase filtering
             .sort((gramKeyA, gramKeyB) =>  utils.splitKey(gramKeyB).length - utils.splitKey(gramKeyA).length)
             // filter subphrases of repeated phrases
@@ -38,10 +41,10 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
                 return true;
             })
             // sort phrases by count
-            .sort((gramKeyA, gramKeyB) =>  {return result[gramKeyB] - result[gramKeyA]})
+            .sort((gramKeyA, gramKeyB) =>  {return result.counts[gramKeyB] - result.counts[gramKeyA]})
             // select top N
             .slice(0, options.N_TOP)
-            // .map((gramKey) => { return {phrase: utils.splitKey(gramKey).join(' '), count: result[gramKey]} });
+            // .map((gramKey) => { return {phrase: utils.splitKey(gramKey).join(' '), count: result.counts[gramKey]} });
             .map((gramKey) => utils.splitKey(gramKey).join(' '));
 
 

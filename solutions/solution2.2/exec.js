@@ -10,26 +10,26 @@ function exec(docStr, options={MIN_GRAM: 3, MAX_GRAM: 10, N_TOP: 10}) {
     let grams = _generateGrams(docStr);
     // console.log('grams');
     // console.log(JSON.stringify(grams, null, 4));
-    let results = grams.inDescLength.reduce((results, gramKey) => {
+    let result = grams.inDescLength.reduce((result, gramKey) => {
         if (gramKey in grams.validPhrases) {
-            results.counts[gramKey] = results.counts[gramKey] || 0;
-            results.counts[gramKey]++;
-            if (results.counts[gramKey] === 2) {
+            result.counts[gramKey] = result.counts[gramKey] || 0;
+            result.counts[gramKey]++;
+            if (result.counts[gramKey] === 2) {
                 _deleteSubgrams(gramKey, grams.validPhrases);
-                results.repeated.push(gramKey);
+                result.repeated.push(gramKey);
             }
         }
-        return results;
+        return result;
     }, {
         counts: {},
         repeated: [],
     });
 
 
-    return results.repeated
-            .sort((gramKeyA, gramKeyB) => results.counts[gramKeyB] - results.counts[gramKeyA])
+    return result.repeated
+            .sort((gramKeyA, gramKeyB) => result.counts[gramKeyB] - result.counts[gramKeyA])
             .slice(0, options.N_TOP)
-            // .map((gramKey) => { return {phrase: utils.splitKey(gramKey).join(' '), count: results.counts[gramKey]}});
+            // .map((gramKey) => { return {phrase: utils.splitKey(gramKey).join(' '), count: result.counts[gramKey]}});
             .map((gramKey) => utils.splitKey(gramKey).join(' '));
 
 
